@@ -10,6 +10,7 @@ function Header() {
         <div></div>
         <img src={Logo} className="h-8" alt="Logo" />
       </div>
+      <div className="border-b border-gray-300 px-10"></div>
     </div>
   );
 }
