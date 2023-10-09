@@ -4,13 +4,13 @@ import BurgerIcon from "../Assets/BurgerIcon.svg"
 
 function Header() {
   return (
-    <div className="pt-5">
-      <div className="flex justify-between items-center px-28 bg-white">
+    <div className="">
+      <div className="flex justify-between items-center bg-white px-28 py-4">
         <img src={BurgerIcon} className="h-10"></img>
         <div></div>
-        <img src={Logo} className="h-8" alt="Logo" />
+        <img src={Logo} className="h-8 xl:flex justify-between items-center" alt="Logo" />
       </div>
-      <div className="border-b border-gray-300 px-10"></div>
+      <div className="border-b border-gray-300"></div>
     </div>
   );
 }
