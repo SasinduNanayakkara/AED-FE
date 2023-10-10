@@ -5,6 +5,8 @@ import ExTravelers from "../Pages/ExTravelers";
 import ViewTraveler from "../Pages/ViewTraveler";
 import BOExTravelers from "../Pages/BOExTravelers";
 import CreateTravel from "../Pages/CreateTravel";
+import CreateTrain from "../Pages/CreateTrain";
+import TrainList from "../Pages/TrainList";
 
 const PageRoutes = () => {
   return (
@@ -16,6 +18,8 @@ const PageRoutes = () => {
         <Route path="/viewtraveler" element={<ViewTraveler />} />
         <Route path="/boextravelers" element={<BOExTravelers/>}/>
         <Route path="/createtravel" element={<CreateTravel/>}/>
+        <Route path="/createtrain" element={<CreateTrain/>}/>
+        <Route path="/trainlist" element={<TrainList/>}/>
       </Routes>
     </Router>
   );

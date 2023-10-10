@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 
-function CreateTraveler() {
+function CreateTrain() {
   return (
     <div>
       <Header />
@@ -11,7 +11,7 @@ function CreateTraveler() {
           <div className="bg-white border rounded-xl p-10 my-20 flex flex-col">
             <div>
               <p className="flex items-center justify-center text-4xl font-bold mb-10">
-                New Travelers
+                New Train
               </p>
             </div>
             <div className="flex justify-center">
@@ -74,4 +74,4 @@ function CreateTraveler() {
   );
 }
 
-export default CreateTraveler;
+export default CreateTrain;
