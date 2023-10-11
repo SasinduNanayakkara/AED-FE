@@ -3,6 +3,9 @@ import Header from '../Components/Header'
 import Footer from '../Components/Footer'
 import TrainListCard from "../Components/TrainListCard";
 import TrainDetails from "../Components/TrainDetailsCard";
+import { useEffect } from "react";
+import axios from "axios";
+import { baseUrl } from "../App";
 
 function TrainList() {
     const [trainData, setTrainData] = useState([
@@ -25,17 +28,36 @@ function TrainList() {
     const [selectedTrainId, setSelectedTrainId] = useState(null);
     const [selectedTrainName, setSelectedTrainName] = useState(null);
     const [selectDates, setSelectDates] = useState([]);
-    const [selectStation, setSelectStation] = useState(null);
+    const [selectStation, setSelectStation] = useState([{
+        station: "",
+        time: ""
+    }]);
     const [selectTime, setSelectTime] = useState(null);
+    const [response, setResponse] = useState([]);
 
-    const handleTrainClick = (id, name, dates, station, time) => {
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const res = await axios.get(`${baseUrl}/train`);
+                if (res) {
+                    setResponse(res.data);
+                    console.log(res.data);
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        getData();
+    },[]);
+
+    const handleTrainClick = (id, name, dates, station) => {
         setSelectedTrainId(id);
         setSelectedTrainName(name);
         setSelectDates(dates);
         setSelectStation(station);
-        setSelectTime(time);
     };
-
+console.log(selectStation[0].station);
     return (
         <div>
             <Header />
@@ -53,13 +75,13 @@ function TrainList() {
                             />
                         </div>
                         <div className="flex flex-col overflow-y-scroll max-h-screen">
-                            {trainData.map((train) => (
+                            {response.map((train) => (
                                 <div key={train.id}>
                                     <TrainListCard
                                         Name={train.name}
-                                        dates={train.dates}
+                                        dates={train.date}
                                         onClick={() => {
-                                            handleTrainClick(train.id, train.name, train.dates, train.station, train.time);
+                                            handleTrainClick(train.trainNo, train.name, train.date, train.stations);
                                         }}
                                     />
                                     <div className="h-[1px] bg-[#D9D9D9] my-1 mx-2"></div>
@@ -82,8 +104,8 @@ function TrainList() {
                         <TrainDetails
                             Name={selectedTrainName}
                             dates={selectDates}
-                            station={selectStation}
-                            time={selectTime}
+                            station={selectStation[0].station}
+                            time={selectStation[0].time}
                         />
                     </div>
                 </div>

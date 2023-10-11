@@ -6,64 +6,33 @@ import ViewMore from "../Assets/ViewMore.svg";
 import ReactPaginate from "react-paginate";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useEffect } from "react";
+import axios from "axios";
+import { baseUrl } from "../App";
 
 function ExTravelers() {
   const PAGE_SIZE = 5;
-  const TABLE_HEAD = ["Prefix", "First Name", "Second Name", "NIC", "Action"];
+  const TABLE_HEAD = ["First Name", "Last Name", "NIC", "Action"];
   const [isAllClicked, setIsAllClicked] = useState(true);
   const [isActivatedCliked, setIsActivatedClicked] = useState(false);
   const [isDeactivatedClicked, setIseactivatedClicked] = useState(false);
+  const [response, setResponse] = useState([]);
 
-  const TABLE_ROWS = [
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-  ];
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get(`${baseUrl}/client`);
+        if (res) {
+          console.log(res.data);
+          setResponse(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+  console.log("data:", response);
 
   const [active, setActive] = React.useState(1);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -175,85 +144,65 @@ function ExTravelers() {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
-                  ({ Prefix, FirstName, SecondName, NIC, name }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast
-                      ? "p-4"
-                      : "p-4 border-b border-blue-gray-50";
-
-                    return (
-                      <tr key={name}>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {Prefix}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {FirstName}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {SecondName}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            as="a"
-                            href="#"
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {NIC}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <div className="flex items-center">
-                            <a
-                              href="#"
-                              className="mr-2"
-                              onClick={toggleDropdown}
-                            >
-                              <img
-                                src={ViewMore}
-                                alt="ViewMore Icon"
-                                className="w-4 h-4"
-                              />
-                            </a>
-                            {/* Dropdown menu */}
-                            {showDropdown && (
-                              <div className="absolute right-0 mt-4 w-40 bg-white border rounded shadow-lg">
-                                <ul>
-                                  <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
-                                    Edit
-                                  </li>
-                                  <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
-                                    Delete
-                                  </li>
-                                </ul>
-                              </div>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  }
-                )}
+                {response?.map((item, index) => {
+                  return (
+                    <tr>
+                      <td className={"p-4 border-b border-blue-gray-50"}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-70"
+                        >
+                          {item.firstName}
+                        </Typography>
+                      </td>
+                      <td className={"p-4 border-b border-blue-gray-50"}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-70"
+                        >
+                          {item.lastName}
+                        </Typography>
+                      </td>
+                      <td className={"p-4 border-b border-blue-gray-50"}>
+                        <Typography
+                          as="a"
+                          href="#"
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-70"
+                        >
+                          {item.nic}
+                        </Typography>
+                      </td>
+                      <td className={"p-4 border-b border-blue-gray-50"}>
+                        <div className="flex items-center">
+                          <a href="#" className="mr-2" onClick={toggleDropdown}>
+                            <img
+                              src={ViewMore}
+                              alt="ViewMore Icon"
+                              className="w-4 h-4"
+                            />
+                          </a>
+                          {/* Dropdown menu */}
+                          {showDropdown && (
+                            <div className="absolute right-0 mt-4 w-40 bg-white border rounded shadow-lg">
+                              <ul>
+                                <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
+                                  Edit
+                                </li>
+                                <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
+                                  Delete
+                                </li>
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             {/* Pagination */}
