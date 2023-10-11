@@ -17,9 +17,10 @@ function CreateTraveler() {
             <div className="flex justify-center">
               <form className="max-w-form items-center">
                 <div className="flex">
-                <select
+                  <select
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
                   >
+                    <option value="" disabled selected>Select Prefix</option>
                     <option value="Miss">Miss</option>
                     <option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
@@ -35,7 +36,7 @@ function CreateTraveler() {
                     type="text"
                     placeholder="Last Name"
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
-                    // Set the width to w-full to make it take up the full card size
+                  // Set the width to w-full to make it take up the full card size
                   />
                 </div>
                 <div className="flex">
