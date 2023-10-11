@@ -17,9 +17,7 @@ function CreateTrain() {
             <div className="flex justify-center">
               <form className="max-w-form items-center">
                 <div className="flex">
-                <select
-                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
-                  >
+                  <select className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2">
                     <option value="Miss">Miss</option>
                     <option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
@@ -53,13 +51,13 @@ function CreateTrain() {
                 <div className="flex justify-center mt-5">
                   <button
                     className="px-5 py-2 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded-3xl mr-2"
-                    onClick={() => { }}
+                    onClick={() => {}}
                   >
                     Add
                   </button>
                   <button
                     className="px-5 py-2 text-black font-semibold hover:bg-[#FF5C00] rounded-3xl border"
-                    onClick={() => { }}
+                    onClick={() => {}}
                   >
                     Cancel
                   </button>
