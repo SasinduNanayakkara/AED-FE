@@ -10,30 +10,32 @@ function TrainList() {
             id: 1,
             name: "Train 1",
             dates: ["Sun", "Sat"],
-            station: "Anuradhapura, Eppawala",
-            time: "00.00AM"
+            stations: [
+                { name: "Anuradhapura", time: "00.00AM" },
+                { name: "Eppawala", time: "01.00AM" }
+            ]
         },
         {
             id: 2,
             name: "Train 2",
             dates: ["Mon", "Tue"],
-            station: "Anuradhapura, Eppawala",
-            time: "00.00AM"
+            stations: [
+                { name: "Anuradhapura", time: "00.30AM" },
+                { name: "Eppawala", time: "01.30AM" }
+            ]
         },
     ]);
 
     const [selectedTrainId, setSelectedTrainId] = useState(null);
     const [selectedTrainName, setSelectedTrainName] = useState(null);
     const [selectDates, setSelectDates] = useState([]);
-    const [selectStation, setSelectStation] = useState(null);
-    const [selectTime, setSelectTime] = useState(null);
+    const [selectStations, setSelectStations] = useState([]);
 
-    const handleTrainClick = (id, name, dates, station, time) => {
+    const handleTrainClick = (id, name, dates, stations) => {
         setSelectedTrainId(id);
         setSelectedTrainName(name);
         setSelectDates(dates);
-        setSelectStation(station);
-        setSelectTime(time);
+        setSelectStations(stations);
     };
 
     return (
@@ -59,7 +61,7 @@ function TrainList() {
                                         Name={train.name}
                                         dates={train.dates}
                                         onClick={() => {
-                                            handleTrainClick(train.id, train.name, train.dates, train.station, train.time);
+                                            handleTrainClick(train.id, train.name, train.dates, train.stations);
                                         }}
                                     />
                                     <div className="h-[1px] bg-[#D9D9D9] my-1 mx-2"></div>
@@ -69,7 +71,7 @@ function TrainList() {
                         <div className="w-full flex justify-center my-3">
                             <button
                                 type="submit"
-                                className="bg-black hover.bg-[#FF5C00] text-white font.bold py-2 px-4 rounded-3xl w-full"
+                                className="bg-black hover.bg-[#FF5C00] text-white font-bold py-2 px-4 rounded-3xl w-full"
                             >
                                 New Train
                             </button>
@@ -82,8 +84,7 @@ function TrainList() {
                         <TrainDetails
                             Name={selectedTrainName}
                             dates={selectDates}
-                            station={selectStation}
-                            time={selectTime}
+                            stations={selectStations}
                         />
                     </div>
                 </div>
