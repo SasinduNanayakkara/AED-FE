@@ -9,7 +9,6 @@ import CreateTrain from "../Pages/CreateTrain";
 import TrainList from "../Pages/TrainList";
 import UpdateTravel from "../Pages/UpdateTravel";
 import UpdateTrain from "../Pages/UpdateTrain";
-import CreateResevation from "../Pages/CreateResevation";
 
 const PageRoutes = () => {
   return (
@@ -27,7 +26,6 @@ const PageRoutes = () => {
         <Route path="/updatetravel" element={<UpdateTravel />} />
         <Route path="/updatetrain" element={<UpdateTrain />} />
         <Route path="/createreservation" element={<UpdateTrain />} />
-        <Route path="/createreservation" element={<CreateResevation />} />
       </Routes>
     </Router>
   );

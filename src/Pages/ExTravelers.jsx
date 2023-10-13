@@ -14,6 +14,51 @@ function ExTravelers() {
     const PAGE_SIZE = 5;
     const TABLE_HEAD = ["First Name", "Second Name", "NIC", "Action"];
 
+    const TABLE_ROWS = [
+        {
+            Prefix: "Mr.",
+            FirstName: "Jhone",
+            SecondName: "Smkth",
+            NIC: "9920283793V"
+        },
+        {
+            Prefix: "Mr.",
+            FirstName: "Jhone",
+            SecondName: "Smkth",
+            NIC: "9920283793V"
+        },
+        {
+            Prefix: "Mr.",
+            FirstName: "Jhone",
+            SecondName: "Smkth",
+            NIC: "9920283793V"
+        },
+        {
+            Prefix: "Mr.",
+            FirstName: "Jhone",
+            SecondName: "Smkth",
+            NIC: "9920283793V"
+        },
+        {
+            Prefix: "Mr.",
+            FirstName: "Jhone",
+            SecondName: "Smkth",
+            NIC: "9920283793V"
+        },
+        {
+            Prefix: "Mr.",
+            FirstName: "Jhone",
+            SecondName: "Smkth",
+            NIC: "9920283793V"
+        },
+        {
+            Prefix: "Mr.",
+            FirstName: "Jhone",
+            SecondName: "Smkth",
+            NIC: "9920283793V"
+        }
+    ];
+
     const [active, setActive] = React.useState(1);
     const [showDropdown, setShowDropdown] = useState(false);
 
