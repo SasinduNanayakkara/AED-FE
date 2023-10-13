@@ -13,15 +13,19 @@ function TrainList() {
             id: 1,
             name: "Train 1",
             dates: ["Sun", "Sat"],
-            station: "Anuradhapura, Eppawala",
-            time: "00.00AM"
+            stations: [
+                { name: "Anuradhapura", time: "00.00AM" },
+                { name: "Eppawala", time: "01.00AM" }
+            ]
         },
         {
             id: 2,
             name: "Train 2",
             dates: ["Mon", "Tue"],
-            station: "Anuradhapura, Eppawala",
-            time: "00.00AM"
+            stations: [
+                { name: "Anuradhapura", time: "00.30AM" },
+                { name: "Eppawala", time: "01.30AM" }
+            ]
         },
     ]);
 
@@ -90,7 +94,7 @@ console.log("sss",selectStation[0].station);
                         <div className="w-full flex justify-center my-3">
                             <button
                                 type="submit"
-                                className="bg-black hover.bg-[#FF5C00] text-white font.bold py-2 px-4 rounded-3xl w-full"
+                                className="bg-black hover.bg-[#FF5C00] text-white font-bold py-2 px-4 rounded-3xl w-full"
                             >
                                 New Train
                             </button>
