@@ -32,7 +32,6 @@ function TrainList() {
         station: "",
         time: ""
     }]);
-    const [selectTime, setSelectTime] = useState(null);
     const [response, setResponse] = useState([]);
 
     useEffect(() => {
@@ -57,7 +56,7 @@ function TrainList() {
         setSelectDates(dates);
         setSelectStation(station);
     };
-console.log(selectStation[0].station);
+console.log("sss",selectStation[0].station);
     return (
         <div>
             <Header />
@@ -104,8 +103,7 @@ console.log(selectStation[0].station);
                         <TrainDetails
                             Name={selectedTrainName}
                             dates={selectDates}
-                            station={selectStation[0].station}
-                            time={selectStation[0].time}
+                            station={selectStation}
                         />
                     </div>
                 </div>
