@@ -11,7 +11,6 @@ function TrainListCard({Name, dates, onClick, isSelected }) {
             {Name}
             </h3>
             <h5 className='text-[#8B8B8B]'>{dates}</h5>
-            
         </div>
     </div>
   )
