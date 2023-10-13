@@ -57,21 +57,29 @@ function CreateTrain() {
             </div>
             <div className="flex justify-center">
               <form className="max-w-form items-center">
-                <div className="flex">
+                {/* <div className="flex">
                   <input
                     type="number"
                     onChange={(e) => setTrainId(e.target.value)}
                     placeholder="Train ID"
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
                   />
-                </div>
-                <div>
+                </div> */}
+                <div className="flex">
                   <input
                     type="text"
                     placeholder="Train Name"
                     onChange={(e) => setTrainName(e.target.value)}
+                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Seat Count"
+                    // onChange={(e) => setTrainName(e.target.value)}
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
                   />
+                  </div>
+                  <div>
                   <select
                     onChange={(e) => setSelectedDay(e.target.value)}
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"

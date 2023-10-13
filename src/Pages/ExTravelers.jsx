@@ -6,64 +6,16 @@ import ViewMore from "../Assets/ViewMore.svg";
 import ReactPaginate from 'react-paginate';
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { Link, useNavigate } from "react-router-dom";
 
 function ExTravelers() {
-    const PAGE_SIZE = 5; 
-    const TABLE_HEAD = ["Prefix", "First Name", "Second Name", "NIC", "Action"];
-
-    const TABLE_ROWS = [
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        },
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        },
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        },
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        },
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        },
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        },
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        },
-        {
-            Prefix: "Mr.",
-            FirstName: "Jhone",
-            SecondName: "Smkth",
-            NIC: "9920283793V"
-        }
-    ];
+    // Use the useNavigate hook to get the navigation function
+    const navigate = useNavigate();
+    const PAGE_SIZE = 5;
+    const TABLE_HEAD = ["First Name", "Second Name", "NIC", "Action"];
 
     const [active, setActive] = React.useState(1);
-    const [showDropdown, setShowDropdown] = useState(false); 
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const getItemProps = (index) =>
     ({
@@ -104,8 +56,10 @@ function ExTravelers() {
                         <div></div>
                         <div className='ml-auto'>
                             <button
-                                className='px-4 py-2 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded'
+                                className="px-4 py-2 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded"
                                 onClick={() => {
+                                    // Use the navigate function to go to the "/createtravel" route
+                                    navigate("/createtravel");
                                 }}
                             >
                                 New Traveler

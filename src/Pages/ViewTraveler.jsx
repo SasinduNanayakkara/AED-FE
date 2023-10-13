@@ -9,60 +9,36 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 function ViewTravelers() {
   const PAGE_SIZE = 5;
-  const TABLE_HEAD = ["Prefix", "First Name", "Second Name", "NIC", "Action"];
+  const TABLE_HEAD = ["Train name", "Date", "Starting Station", "Ending Station", "Action"];
   const [isAllClicked, setIsAllClicked] = useState(true);
   const [isUpcomingCliked, setIsUpcomingClicked] = useState(false);
   const [isHistoryClicked, setIsHistoryClicked] = useState(false);
 
   const TABLE_ROWS = [
     {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
+      TrainName: "E68",
+      Date: "January 28,2023",
+      Staring: "Fort",
+      Ending: "Gampaha",
     },
     {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
+      TrainName: "Train 1",
+      Date: "January 28,2023",
+      Staring: "Gampaha",
+      Ending: "Fort",
     },
     {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
+      TrainName: "express",
+      Date: "January 28,2023",
+      Staring: "Anuradhapura",
+      Ending: "Gampaha",
     },
     {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
+      TrainName: "express1",
+      Date: "January 28,2023",
+      Staring: "Fort",
+      Ending: "Kandy",
+    }
   ];
 
   const [active, setActive] = React.useState(1);
@@ -120,7 +96,7 @@ function ViewTravelers() {
           <div className="flex justify-between mb-4">
             <div>
               <p className="font-semibold">Name:</p>
-              <p className="">Miss. Shavidini Ekanayake</p>
+              <p className="">Shavidini Ekanayake</p>
             </div>
             <div>
               <p className="font-semibold">NIC:</p>
@@ -203,7 +179,7 @@ function ViewTravelers() {
             </thead>
             <tbody>
               {TABLE_ROWS.map(
-                ({ Prefix, FirstName, SecondName, NIC, name }, index) => {
+                ({ TrainName, Date, Staring, Ending, name }, index) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "p-4"
@@ -217,7 +193,7 @@ function ViewTravelers() {
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {Prefix}
+                          {TrainName}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -226,7 +202,7 @@ function ViewTravelers() {
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {FirstName}
+                          {Date}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -235,7 +211,7 @@ function ViewTravelers() {
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {SecondName}
+                          {Staring}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -246,7 +222,7 @@ function ViewTravelers() {
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {NIC}
+                          {Ending}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -280,7 +256,7 @@ function ViewTravelers() {
             </tbody>
           </table>
           {/* Pagination */}
-          <div className="flex items-center gap-4 mb-10 justify-center ">
+          {/* <div className="flex items-center gap-4 mb-10 justify-center ">
             <Button
               variant="text"
               className={`flex items-center gap-2 rounded-full`}
@@ -349,7 +325,7 @@ function ViewTravelers() {
             >
               <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex items-center justify-center mb-10">

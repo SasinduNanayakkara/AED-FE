@@ -11,30 +11,23 @@ function CreateTraveler() {
           <div className="bg-white border rounded-xl p-10 my-20 flex flex-col">
             <div>
               <p className="flex items-center justify-center text-4xl font-bold mb-10">
-                Ediut Traveler Details
+                Edit Traveler Details
               </p>
             </div>
             <div className="flex justify-center">
               <form className="max-w-form items-center">
                 <div className="flex">
-                  <select
-                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
-                  >
-                    <option value="" disabled selected>Select Prefix</option>
-                    <option value="Miss">Miss</option>
-                    <option value="Mr">Mr</option>
-                    <option value="Mrs">Mrs</option>
-                  </select>
+   
                   <input
                     type="text"
-                    placeholder="First Name"
+                    placeholder="Shavidini"
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
                   />
                 </div>
                 <div>
                   <input
                     type="text"
-                    placeholder="Last Name"
+                    placeholder="Ekanayake"
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
                   // Set the width to w-full to make it take up the full card size
                   />
@@ -42,13 +35,40 @@ function CreateTraveler() {
                 <div className="flex">
                   <input
                     type="text"
-                    placeholder="Phone Number"
+                    placeholder="+94703009913"
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
                   />
                   <input
                     type="text"
-                    placeholder="NIC"
+                    placeholder="199876546588"
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    placeholder="shavidilunika10s@gmail.com"
+                    // onChange={(e) => setEmail(e.target.value)}
+                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
+                    // Set the width to w-full to make it take up the full card size
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    // onChange={(e) => setPassword(e.target.value)}
+                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
+                    // Set the width to w-full to make it take up the full card size
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    // onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
+                    // Set the width to w-full to make it take up the full card size
                   />
                 </div>
                 <div className="flex justify-center mt-5">

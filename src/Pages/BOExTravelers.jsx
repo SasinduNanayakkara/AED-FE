@@ -11,6 +11,7 @@ import axios from "axios";
 import { baseUrl } from "../App";
 
 function ExTravelers() {
+  // Constants and state variables
   const PAGE_SIZE = 5;
   const TABLE_HEAD = ["First Name", "Last Name", "NIC", "Action"];
   const [isAllClicked, setIsAllClicked] = useState(true);
@@ -18,6 +19,7 @@ function ExTravelers() {
   const [isDeactivatedClicked, setIseactivatedClicked] = useState(false);
   const [response, setResponse] = useState([]);
 
+  // Fetch data from an API endpoint on component mount
   useEffect(() => {
     const getData = async () => {
       try {
@@ -37,6 +39,7 @@ function ExTravelers() {
   const [active, setActive] = React.useState(1);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  // Function to get item properties based on index
   const getItemProps = (index) => ({
     variant: active === index ? "filled" : "text",
     color: "black",
@@ -44,22 +47,24 @@ function ExTravelers() {
     className: "rounded-full",
   });
 
+  // Function to navigate to the next page
   const next = () => {
     if (active === 5) return;
-
     setActive(active + 1);
   };
 
+  // Function to navigate to the previous page
   const prev = () => {
     if (active === 1) return;
-
     setActive(active - 1);
   };
 
+  // Toggle the visibility of the dropdown menu
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
+  // Event handlers for filtering travelers
   const handleAllClick = () => {
     setIsAllClicked((prevState) => !prevState);
     setIsActivatedClicked(false);

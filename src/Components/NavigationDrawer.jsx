@@ -42,40 +42,17 @@ function NavigationDrawer({ open, onClose, userRole }) {
             {showTraveler && (
               <div className=''>
                 <div className='mt-2 mb-4'>
-                  <a href="/traveler" className='ml-10 p-2 w-full'>View Travelers</a>
+                  <a href="/extravelers" className='ml-10 p-2 w-full'>Traveler List</a>
                 </div>
                 <div className="h-[1px] bg-[#D9D9D9] my-1 mx-10"></div>
                 <div className='mt-2 mb-4'>
-                  <a href="/add-traveler" className='m-10 p-2 w-full'>Add Traveler</a>
+                  <a href="/createtravel" className='m-10 p-2 w-full'>New Traveler</a>
                 </div>
                 <div className="h-[1px] bg-[#D9D9D9] my-1 mx-10"></div>
               </div>
             )}
           </div>
-        </div>
-        <div className="drawer-section">
-          {/* "Train Managements" section is always visible for users with any role */}
-          <div>
-            <div className="drawer-header m-5 rounded-md bg-[#FDEEE3] p-3 font-semibold" onClick={handleTrainClick}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                {showTrain ? <FiChevronDown /> : <FiChevronRight />}
-                <span>Train Managements</span>
-              </div>
-            </div>
-            {showTrain && (
-              <div className=''>
-                <div className='mt-2 mb-4'>
-                  <a href="/trainlist" className='ml-10 p-2 w-full'>View Trains</a>
-                </div>
-                <div className="h-[1px] bg-[#D9D9D9] my-1 mx-10"></div>
-                <div className='mt-2 mb-4'>
-                  <a href="/createtrain" className='m-10 p-2 w-full'>Add Train</a>
-                </div>
-                <div className="h-[1px] bg-[#D9D9D9] my-1 mx-10"></div>
-              </div>
-            )}
-          </div>
-        </div>
+        </div>       
       </div>
     </div>
   );

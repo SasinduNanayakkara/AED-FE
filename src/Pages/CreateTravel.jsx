@@ -5,6 +5,7 @@ import axios from "axios";
 import { baseUrl } from "../App";
 
 function CreateTraveler() {
+   // State variables to hold form input data
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
@@ -13,19 +14,18 @@ function CreateTraveler() {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
 
+   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(password, confirmpassword);
+      // Check if the entered passwords match
     if (password !== confirmpassword) {
       alert("Password does not match");
       return;
     }
-    // if (!validation(nic)) {
-    //   console.log("Invalid NIC");
-    //   alert("Invalid NIC");
-    //   return;
-    // }
+
     try {
+       // Send a POST request to the server to create a new traveler
       const response = await axios.post(`${baseUrl}/client`,{
         firstname,
         lastname,
@@ -45,6 +45,7 @@ function CreateTraveler() {
     }
   }
 
+   // NIC validation function (currently commented out)
   function validation(nicNumber) {
     var result = false;
     if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
@@ -67,20 +68,20 @@ function CreateTraveler() {
           <div className="bg-white border rounded-xl p-10 my-20 flex flex-col">
             <div>
               <p className="flex items-center justify-center text-4xl font-bold mb-10">
-                New Travelers
+                New Traveler
               </p>
             </div>
             <div className="flex justify-center">
               <form className="max-w-form items-center">
                 <div className="flex">
-                  <select
+                  {/* <select
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
                   >
                     <option value="" disabled selected>Select Prefix</option>
                     <option value="Miss">Miss</option>
                     <option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
-                  </select>
+                  </select> */}
                   <input
                     type="text"
                     placeholder="First Name"

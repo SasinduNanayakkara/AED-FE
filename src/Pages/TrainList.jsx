@@ -38,6 +38,7 @@ function TrainList() {
     }]);
     const [response, setResponse] = useState([]);
 
+    // Fetch train data from an API when the component mounts
     useEffect(() => {
         const getData = async () => {
             try {
@@ -52,15 +53,16 @@ function TrainList() {
             }
         }
         getData();
-    },[]);
+    }, []);
 
+    // Handle a click on a train to display its details
     const handleTrainClick = (id, name, dates, station) => {
         setSelectedTrainId(id);
         setSelectedTrainName(name);
         setSelectDates(dates);
         setSelectStation(station);
     };
-console.log("sss",selectStation[0].station);
+    console.log("sss", selectStation[0].station);
     return (
         <div>
             <Header />
