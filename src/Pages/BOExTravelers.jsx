@@ -9,9 +9,11 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import axios from "axios";
 import { baseUrl } from "../App";
+import { useNavigate } from "react-router-dom";
 
 function ExTravelers() {
   const PAGE_SIZE = 5;
+  const navigate = useNavigate();
   const TABLE_HEAD = ["First Name", "Last Name", "NIC", "Action"];
   const [isAllClicked, setIsAllClicked] = useState(true);
   const [isActivatedCliked, setIsActivatedClicked] = useState(false);
@@ -36,6 +38,10 @@ function ExTravelers() {
 
   const [active, setActive] = React.useState(1);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleUpdate = async (id, firstName, lastName, nic, password, email, phone, isActive) => {
+    navigate('/updatetravel', {state: {id, firstName, lastName, nic, password, email, phone, isActive}});
+  }
 
   const getItemProps = (index) => ({
     variant: active === index ? "filled" : "text",
@@ -189,7 +195,9 @@ function ExTravelers() {
                           {showDropdown && (
                             <div className="absolute right-0 mt-4 w-40 bg-white border rounded shadow-lg">
                               <ul>
-                                <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
+                                <li className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                                onClick={() => handleUpdate(item.id, item.firstName, item.lastName, item.nic, item.password, item.email, item.phone, item.isActive)}
+                                >
                                   Edit
                                 </li>
                                 <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
