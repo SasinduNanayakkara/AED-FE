@@ -260,88 +260,8 @@ function ViewTravelers() {
               )}
             </tbody>
           </table>
-          {/* Pagination */}
-          <div className="flex items-center gap-4 mb-10 justify-center ">
-            <Button
-              variant="text"
-              className={`flex items-center gap-2 rounded-full`}
-              onClick={prev}
-              disabled={active === 1}
-            >
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
-            </Button>
-            <div className="flex items-center gap-2">
-              <IconButton
-                {...getItemProps(1)}
-                className={
-                  active === 1
-                    ? "bg-black text-white w-10 h-10 rounded-3xl shadow-xl"
-                    : ""
-                }
-              >
-                1
-              </IconButton>
-              <IconButton
-                {...getItemProps(2)}
-                className={
-                  active === 2
-                    ? "bg-black text-white w-10 h-10 rounded-3xl shadow-xl"
-                    : ""
-                }
-              >
-                2
-              </IconButton>
-              <IconButton
-                {...getItemProps(3)}
-                className={
-                  active === 3
-                    ? "bg-black text-white w-10 h-10 rounded-3xl shadow-xl"
-                    : ""
-                }
-              >
-                3
-              </IconButton>
-              <IconButton
-                {...getItemProps(4)}
-                className={
-                  active === 4
-                    ? "bg-black text-white w-10 h-10 rounded-3xl shadow-xl"
-                    : ""
-                }
-              >
-                4
-              </IconButton>
-              <IconButton
-                {...getItemProps(5)}
-                className={
-                  active === 5
-                    ? "bg-black text-white w-10 h-10 rounded-3xl shadow-xl"
-                    : ""
-                }
-              >
-                5
-              </IconButton>
-            </div>
-            <Button
-              variant="text"
-              className={`flex items-center gap-2 rounded-full }`}
-              onClick={next}
-              disabled={active === 5}
-            >
-              <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-            </Button>
-          </div>
         </div>
       </div>
-      <div className="flex items-center justify-center mb-10">
-        <button
-          className="px-16 py-2 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded-3xl"
-          onClick={() => {}}
-        >
-          Add Reservation
-        </button>
-      </div>
-
       <Footer></Footer>
     </div>
   );
