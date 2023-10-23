@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { Card, Typography } from "@material-tailwind/react";
@@ -7,14 +7,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useEffect } from "react";
+import { baseUrl } from "../App";
 
 function ViewTravelers() {
   const location = useLocation();
   const navigate = useNavigate();
   const PAGE_SIZE = 5;
-  const TABLE_HEAD = ["Prefix", "First Name", "Second Name", "NIC", "Action"];
+  const TABLE_HEAD = ["Train Name", "Date", "Start station", "End Station"];
   const [isAllClicked, setIsAllClicked] = useState(true);
-  const [isUpcomingCliked, setIsUpcomingClicked] = useState(false);
+  const [isUpcomingCliked, setIsUpcomingClicked] = useState(true);
   const [isHistoryClicked, setIsHistoryClicked] = useState(false);
   const [firstName, setFirstName] = useState(location.state.firstName);
   const [lastName, setLastName] = useState(location.state.lastName);
@@ -25,57 +27,45 @@ function ViewTravelers() {
   const [isActive, setIsActive] = useState(location.state.isActive);
   const [user, setUser] = useState(location.state);
 
-  const TABLE_ROWS = [
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-    {
-      Prefix: "Mr.",
-      FirstName: "Jhone",
-      SecondName: "Smkth",
-      NIC: "9920283793V",
-    },
-  ];
+  const [tableData, setTableData] = useState([]);
 
+  const currentTableData = useRef([]);
+  const pastTableData = useRef([]);
+
+  useEffect(() => {
+    const fn = async () => {
+      let res = await fetch(baseUrl + "/reservation/current/" + location?.state?.nic);
+      let data = await res.json();
+
+      currentTableData.current = [];
+      data?.forEach(item => {
+        currentTableData.current.push({
+            name: item?.train?.name,
+            date: item?.date,
+            startStation: item?.startStation?.station,
+            endStation: item?.endStation?.station,
+        })
+      })
+      
+      setTableData(currentTableData.current);
+
+      res = await fetch(baseUrl + "/reservation/past/" + location?.state?.nic);
+      data = await res.json();
+
+      pastTableData.current = [];
+      data?.forEach(item => {
+        pastTableData.current.push({
+            name: item?.train?.name,
+            date: item?.date,
+            startStation: item?.startStation?.station,
+            endStation: item?.endStation?.station,
+        })
+      })
+    }
+
+    fn().catch(console.error);
+  }, [])
+  
   console.log("location", location.state);
 
   const handleUpdate = async (user) => {
@@ -120,12 +110,14 @@ function ViewTravelers() {
     setIsUpcomingClicked((prevState) => !prevState);
     setIsAllClicked(false);
     setIsHistoryClicked(false);
+    setTableData(currentTableData.current);
   };
 
   const handleHistorygClick = () => {
     setIsHistoryClicked((prevState) => !prevState);
     setIsAllClicked(false);
     setIsUpcomingClicked(false);
+    setTableData(pastTableData.current);
   };
 
   return (
@@ -177,16 +169,6 @@ function ViewTravelers() {
         <div className="mb-8">
           <button
             className={`font-inter font-semibold rounded-full px-4 py-2 text-sm ${
-              isAllClicked
-                ? "bg-black text-white hover:bg-[#FF5C00] hover:text-white"
-                : "text-black border-black border-2"
-            } mr-5`}
-            onClick={handleAllClick}
-          >
-            All
-          </button>
-          <button
-            className={`font-inter font-semibold rounded-full px-4 py-2 text-sm ${
               isUpcomingCliked
                 ? "bg-black text-white hover:bg-[#FF5C00] hover:text-white"
                 : "text-black border-black border-2"
@@ -225,9 +207,9 @@ function ViewTravelers() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ Prefix, FirstName, SecondName, NIC, name }, index) => {
-                  const isLast = index === TABLE_ROWS.length - 1;
+              {tableData.map(
+                ({  name, date, startStation, endStation }, index) => {
+                  const isLast = index === tableData.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
@@ -240,28 +222,28 @@ function ViewTravelers() {
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {Prefix}
+                          {name}
                         </Typography>
                       </td>
-                      <td className={classes}>
+                      <td className={date}>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {FirstName}
+                          {date}
                         </Typography>
                       </td>
-                      <td className={classes}>
+                      <td className={startStation}>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {SecondName}
+                          {startStation}
                         </Typography>
                       </td>
-                      <td className={classes}>
+                      <td className={endStation}>
                         <Typography
                           as="a"
                           href="#"
@@ -269,33 +251,10 @@ function ViewTravelers() {
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {NIC}
+                          {endStation}
                         </Typography>
                       </td>
-                      <td className={classes}>
-                        <div className="flex items-center">
-                          <a href="#" className="mr-2" onClick={toggleDropdown}>
-                            <img
-                              src={ViewMore}
-                              alt="ViewMore Icon"
-                              className="w-4 h-4"
-                            />
-                          </a>
-                          {/* Dropdown menu */}
-                          {showDropdown && (
-                            <div className="absolute right-0 mt-4 w-40 bg-white border rounded shadow-lg">
-                              <ul>
-                                <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
-                                  Edit
-                                </li>
-                                <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
-                                  Delete
-                                </li>
-                              </ul>
-                            </div>
-                          )}
-                        </div>
-                      </td>
+                      <Actions classes={classes} />
                     </tr>
                   );
                 }
@@ -387,6 +346,39 @@ function ViewTravelers() {
       <Footer></Footer>
     </div>
   );
+}
+
+const Actions = ({ classes }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  return (
+    <td className={classes}>
+      <div className="flex items-center">
+        <span className="mr-2" onClick={() => setShowDropdown(true)}>
+          <img
+            src={ViewMore}
+            alt="ViewMore Icon"
+            className="w-4 h-4"
+          />
+        </span>
+        {/* Dropdown menu */}
+        {showDropdown && (
+          <div className="absolute right-0 mt-4 w-40 bg-white border rounded shadow-lg">
+            <ul>
+              <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
+                Edit
+              </li>
+              <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
+                Delete
+              </li>
+              <li className="px-4 py-2 cursor-pointer hover:bg-gray-200" onClick={() => setShowDropdown(false)}>
+                Cancel
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </td>
+  )
 }
 
 export default ViewTravelers;
