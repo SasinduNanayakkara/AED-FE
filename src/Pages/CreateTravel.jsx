@@ -1,10 +1,11 @@
-import React, { useState, startTransition } from "react";
+import React, { useState, startTransition, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import axios from "axios";
 import { baseUrl } from "../App";
 import { Button, Divider, notification, Space } from 'antd';
+import { sleep } from "../Utils/sleep";
 
 function CreateTraveler() {
   const navigate = useNavigate();
@@ -15,16 +16,18 @@ function CreateTraveler() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
-
-
+  const message = useRef("");
+  const [api, contextHolder] = notification.useNotification();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     console.log(password, confirmpassword);
     if (password !== confirmpassword) {
       alert("Password does not match");
       return;
     }
+    console.log("oioio")
     // if (!validation(nic)) {
     //   console.log("Invalid NIC");
     //   alert("Invalid NIC");
@@ -41,28 +44,24 @@ function CreateTraveler() {
         nic
       });
       if (response) {
-        alert("Traveler Added Successfully");
+        api.info({
+          message: "Traveler added successfully.",
+          placement: 'topRight'
+        });
+
+        await sleep(2000)
+        navigate("/agentTravelers");
         // openNotification('topRight')
-        navigate("/extravelers");
       }
 
     } catch (error) {
+      api.error({
+        message: "Adding traveler failed.",
+        placement: 'topRight'
+      });
       console.log(error);
-      
     }
   }
-
-  const [api, contextHolder] = notification.useNotification();
-  
-  const openNotification = (placement, e) => {
-
-    e.preventDefault();
-    
-    api.info({
-      message: 'Traveler Added Successfully',
-      placement,
-    });
-  };
 
   function validation(nicNumber) {
     var result = false;
@@ -80,6 +79,7 @@ function CreateTraveler() {
 
   return (
     <div>
+      {contextHolder}
       <Header />
       <div>
         <div className="flex-grow flex items-center justify-center">
@@ -161,7 +161,6 @@ function CreateTraveler() {
                   type="button"
                     className="px-5 py-2 text-black font-semibold hover:bg-[#FF5C00] rounded-3xl border"
                     onClick={(e) => startTransition(() => {
-                      openNotification('topRight',e);
                     })}
                   >
                     Cancel
