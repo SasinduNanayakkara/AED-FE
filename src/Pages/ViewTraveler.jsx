@@ -154,8 +154,17 @@ function ViewTravelers() {
       </div>
 
       <div className="px-28">
-        <p className="text-3xl font-bold my-10 pcx">Current Reservations</p>
-
+        <div className="my-10 pcx flex flex-row">
+          <span className="text-3xl font-bold">Current Reservations</span>
+          <div className="ml-auto">
+              <button
+                className="px-4 py-2 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded"
+                onClick={() => {navigate("/createtravel")}}
+              >
+                New Reservation
+              </button>
+            </div>
+        </div>
         <div className="mb-8">
           <button
             className={`font-inter font-semibold rounded-full px-4 py-2 text-sm ${
