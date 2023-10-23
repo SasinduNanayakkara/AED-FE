@@ -135,10 +135,10 @@ function ViewTravelers() {
         Details of Traveler
       </p>
       <div className="flex-grow flex items-center justify-center w-full">
-        <div className="bg-[#F8F8F8] shadow-md rounded-xl p-10 max-w-md m-10 flex flex-col">
-          <div className="flex justify-between mb-4">
+        <div className="bg-[#F8F8F8] shadow-md rounded-xl p-10 max-w-10 m-10 flex flex-col">
+          <div className="flex justify-between gap-6 mb-4">
             <div>
-              <p className="font-semibold">Name:</p>
+              <p className="font-semibold truncate ...">Name:</p>
               <p className="">{firstName + " " +  lastName}</p>
             </div>
             <div>
@@ -150,7 +150,7 @@ function ViewTravelers() {
               <p>{phone}</p>
             </div>
             <div className="mb-2">
-              <p className="font-semibold">Email:</p>
+              <p className="font-semibold truncate ...">Email:</p>
               <p>{email}</p>
             </div>
           </div>
