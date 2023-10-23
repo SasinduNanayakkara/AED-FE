@@ -3,6 +3,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import axios from "axios";
 import { baseUrl } from "../App";
+import { notification } from "antd";
 
 function CreateTrain() {
   const timeOptions = [
@@ -19,7 +20,7 @@ function CreateTrain() {
   const [selectedStation, setSelectedStation] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedStationsAndTimes, setSelectedStationsAndTimes] = useState([]);
-
+  const [api, contextHolder] = notification.useNotification();
 
   const handleAddClick = async (e) => {
       try {
@@ -34,18 +35,25 @@ function CreateTrain() {
           }]
         });
         if (resposne) {
-          alert("Train Added Successfully");
+          api.info({
+            message: "Traveler added successfully.",
+            placement: 'topRight'
+          });
         }
       }
       catch (error) {
         console.log(error);
-        alert("Train Adding Failed");
+        api.error({
+          message: "Train Adding Failed.",
+          placement: 'topRight'
+        });
       }
   };
   console.log(selectedTime, selectedStation);
 
   return (
     <div>
+      {contextHolder}
       <Header />
       <div>
         <div className="flex-grow flex items-center justify-center">

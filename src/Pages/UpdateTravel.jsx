@@ -4,6 +4,7 @@ import Footer from "../Components/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../App";
+import { notification } from "antd";
 
 function CreateTraveler() {
   const location = useLocation();
@@ -17,6 +18,7 @@ function CreateTraveler() {
   const [isActive, setIsActive] = useState(true);
   const [id, setId] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(null);
+  const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
     setFirstName(location.state.user.firstName);
@@ -29,12 +31,15 @@ function CreateTraveler() {
   }, []);
 
   console.log();
-
+  
   const handleUpdate = async (e) => {
     e.preventDefault();
     console.log(id, firstName, lastName, nic, password, email, isActive);
     if (password !== confirmPassword && password !== null && confirmPassword !== null) {
-      alert("Password does not match");
+      api.error({
+        message: "Password does not match",
+        placement: "topRight"
+      })
       return;
     }
         try {
@@ -48,18 +53,28 @@ function CreateTraveler() {
             nic: nic,
           });
           if (request) {
-            alert("Traveler Updated Successfully");
+            api.info({
+              message: "Traveler updated successfully.",
+              placement: "topRight"
+            })
+
+          setTimeout(() => {
             navigate("/extravelers");
+          }, 2000)
           }
         }
         catch (error) {
           console.log(error);
-          alert("Traveler Update Failed");
+          api.error({
+            message: "Traveler Update Failed",
+            placement: "topRight"
+          })
         }
   }
   console.log(location.state);
   return (
     <div>
+      {contextHolder}
       <Header />
       <div>
         <div className="flex-grow flex items-center justify-center">
