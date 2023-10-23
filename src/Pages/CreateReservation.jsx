@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import axios from "axios";
@@ -13,36 +13,51 @@ function CreateReservation() {
     "1:00 PM",
     "2:00 PM",
   ];
-  const [trainId, setTrainId] = useState("");
-  const [trainName, setTrainName] = useState("");
-  const [selectedDay, setSelectedDay] = useState("");
-  const [selectedStation, setSelectedStation] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
-  const [selectedStationsAndTimes, setSelectedStationsAndTimes] = useState([]);
+  const [stationsList, setStationsList] = useState([]);
+  const [startStation, setStartStation] = useState("");
+  const [endStation, setEndStation] = useState("");
+  const [date, setDate] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 30);
+  const thirtyDaysLater = currentDate.toISOString().split("T")[0];
 
-  const handleAddClick = async (e) => {
+  useEffect(() => {
+    const getTrainList = async () => {
       try {
-        e.preventDefault();
-        const resposne = await axios.post(`${baseUrl}/train`, {
-          trainNo: trainId,
-          name: trainName,
-          date: [selectedDay],
-          stations: [{
-            station: selectedStation,
-            time: selectedTime
-          }]
-        });
-        if (resposne) {
-          alert("Train Added Successfully");
+        const response = await axios.get(`${baseUrl}/train/stationlist`);
+        if(response) {
+          console.log(response.data);
+          setStationsList(response.data.stations);
         }
       }
-      catch (error) {
+      catch(error) {
         console.log(error);
-        alert("Train Adding Failed");
       }
+    }
+    getTrainList();
+  },[]);
+
+  const getFilteredTrains = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${baseUrl}/train/filter`, {
+        date: date,
+        startStation: startStation,
+        endStation: endStation
+      });
+      if (response) {
+        console.log(response.data);
+      }
+    }
+    catch(error) {
+      console.log(error);
+    }
   };
-  console.log(selectedTime, selectedStation);
+
+  console.log(date, startStation, endStation);
+
 
   return (
     <div>
@@ -61,50 +76,58 @@ function CreateReservation() {
                   <input
                     type="date"
                     placeholder="Select Date"
-                    onChange={(e) => setTrainName(e.target.value)}
-                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
+                    min={new Date().toISOString().split("T")[0]}
+                    //max is the date 30 days after today
+                    max={thirtyDaysLater}
+                    onChange={(e) => setDate(e.target.value)}
+                    className=" p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
                   />
                 </div>
                 <div className="flex">
                   <select
-                    value={selectedStation}
-                    onChange={(e) => setSelectedStation(e.target.value)}
-                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 mr-4 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
+                    value={startStation}
+                    onChange={(e) => setStartStation(e.target.value)}
+                    className=" p-2 rounded-md bg-[#ffffff] w-1/2 mr-4 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
                   >
                     <option value="" disabled>
                       Select Start Station
                     </option>
-                    <option value="AAA">AAA</option>
-                    <option value="BBB">BBB</option>
-                    <option value="CCC">CCC</option>
+                    {stationsList?.map((station) => (
+                      <option value={station}>{station}</option>
+                    ))}
                   </select>
 
                   <select
-                    value={selectedStation}
-                    onChange={(e) => setSelectedStation(e.target.value)}
-                    className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
+                    value={endStation}
+                    onChange={(e) => setEndStation(e.target.value)}
+                    className=" p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
                   >
                     <option value="" disabled>
                       Select End Station
                     </option>
-                    <option value="AAA">AAA</option>
-                    <option value="BBB">BBB</option>
-                    <option value="CCC">CCC</option>
+                    {stationsList?.map((station) => (
+                      <option value={station}>{station}</option>
+                    ))}
+                    
                   </select>
                 </div>
                 <div className="flex justify-center mt-5">
+                  {isLoading ?? (
                   <button
                     className="px-5 py-2 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded-3xl mr-2"
-                    onClick={(e) => handleAddClick(e)}
+                    // onClick={}
                   >
                     Add
                   </button>
+                  )}
+                  {isLoading !== true && (
                   <button
                     className="px-5 py-2 text-black font-semibold hover:bg-[#FF5C00] rounded-3xl border"
-                    onClick={() => {}}
+                    onClick={(e) => getFilteredTrains(e)}
                   >
-                    Cancel
+                    Search Train
                   </button>
+                  )}
                 </div>
               </form>
             </div>
@@ -113,7 +136,7 @@ function CreateReservation() {
       </div>
       <Footer />
 
-      {selectedStationsAndTimes.length > 0 && (
+      {/* {selectedStationsAndTimes.length > 0 && (
         <div className="flex justify-center mt-5">
           <div>
             <h2 className="text-2xl font-semibold mb-2">Selected Stations and Times:</h2>
@@ -126,7 +149,7 @@ function CreateReservation() {
             </ul>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
