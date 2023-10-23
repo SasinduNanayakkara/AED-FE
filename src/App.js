@@ -1,6 +1,6 @@
 import './App.css';
 import PageRoutes from './Routes';
-export const baseUrl = "https://sliit-ead.azurewebsites.net/api";
+export const baseUrl = "https://ead-web-main.azurewebsites.net/api";
 // export const baseUrl = "https://localhost:44321/api";
 
 function App() {

@@ -13,25 +13,30 @@ function CreateTraveler() {
   const [nic, setNic] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(null);
   const [isActive, setIsActive] = useState(true);
   const [id, setId] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(null);
 
   useEffect(() => {
-    setFirstName(location.state.firstName);
-    setLastName(location.state.lastName);
-    setNic(location.state.nic);
-    setPhone(location.state.phone);
-    setEmail(location.state.email);
-    setPassword(location.state.password);
-    setIsActive(location.state.isActive);
-    setId(location.state.id);
+    setFirstName(location.state.user.firstName);
+    setLastName(location.state.user.lastName);
+    setNic(location.state.user.nic);
+    setPhone(location.state.user.phone);
+    setEmail(location.state.user.email);
+    setIsActive(location.state.user.isActive);
+    setId(location.state.user.id);
   }, []);
 
+  console.log();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     console.log(id, firstName, lastName, nic, password, email, isActive);
+    if (password !== confirmPassword && password !== null && confirmPassword !== null) {
+      alert("Password does not match");
+      return;
+    }
         try {
           const request = await axios.put(`${baseUrl}/client/${id}`, {
             firstName: firstName,
@@ -100,6 +105,35 @@ function CreateTraveler() {
                     value={nic}
                     onChange={(e) => setNic(e.target.value)}
                     className="hover:text-[#FF5C00] p-2 rounded-md bg-[#ffffff] w-1/2 font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6]"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className=" p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
+                    // Set the width to w-full to make it take up the full card size
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                   
+                    onChange={(e) => setPassword(e.target.value)}
+                    className=" p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
+                    // Set the width to w-full to make it take up the full card size
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className=" p-2 rounded-md bg-[#ffffff] w-full font-inter font-normal h-12 placeholder-[#7A7A7A] mb-3 border border-[#E6E6E6] mr-2"
+                    // Set the width to w-full to make it take up the full card size
                   />
                 </div>
                 <div className="flex justify-center mt-5">

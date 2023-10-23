@@ -3,16 +3,27 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { Card, Typography } from "@material-tailwind/react";
 import ViewMore from "../Assets/ViewMore.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 function ViewTravelers() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const PAGE_SIZE = 5;
   const TABLE_HEAD = ["Prefix", "First Name", "Second Name", "NIC", "Action"];
   const [isAllClicked, setIsAllClicked] = useState(true);
   const [isUpcomingCliked, setIsUpcomingClicked] = useState(false);
   const [isHistoryClicked, setIsHistoryClicked] = useState(false);
+  const [firstName, setFirstName] = useState(location.state.firstName);
+  const [lastName, setLastName] = useState(location.state.lastName);
+  const [nic, setNic] = useState(location.state.nic);
+  const [phone, setPhone] = useState(location.state.phone);
+  const [email, setEmail] = useState(location.state.email);
+  const [password, setPassword] = useState(location.state.password);
+  const [isActive, setIsActive] = useState(location.state.isActive);
+  const [user, setUser] = useState(location.state);
 
   const TABLE_ROWS = [
     {
@@ -65,6 +76,14 @@ function ViewTravelers() {
     },
   ];
 
+  console.log("location", location.state);
+
+  const handleUpdate = async (user) => {
+    navigate("/updatetravel", {
+      state: { user },
+    });
+  };
+
   const [active, setActive] = React.useState(1);
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -115,26 +134,30 @@ function ViewTravelers() {
       <p className="flex items-center justify-center text-4xl font-bold mt-10">
         Details of Traveler
       </p>
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex items-center justify-center w-full">
         <div className="bg-[#F8F8F8] shadow-md rounded-xl p-10 max-w-md m-10 flex flex-col">
           <div className="flex justify-between mb-4">
             <div>
               <p className="font-semibold">Name:</p>
-              <p className="">Miss. Shavidini Ekanayake</p>
+              <p className="">{firstName + " " +  lastName}</p>
             </div>
             <div>
               <p className="font-semibold">NIC:</p>
-              <p className="mr-10">996521788V</p>
+              <p className="mr-10">{nic}</p>
             </div>
             <div className="mb-2">
               <p className="font-semibold">Phone:</p>
-              <p>+94703009912</p>
+              <p>{phone}</p>
+            </div>
+            <div className="mb-2">
+              <p className="font-semibold">Email:</p>
+              <p>{email}</p>
             </div>
           </div>
           <div className="flex justify-center">
             <button
               className="px-4 py-1 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded-3xl mr-2"
-              onClick={() => {}}
+              onClick={() => handleUpdate(user)}
             >
               Edit
             </button>
