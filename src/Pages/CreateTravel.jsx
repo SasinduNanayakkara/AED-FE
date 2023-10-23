@@ -24,7 +24,10 @@ function CreateTraveler() {
 
     console.log(password, confirmpassword);
     if (password !== confirmpassword) {
-      alert("Password does not match");
+      api.error({
+        message: "Password does not match",
+        placement: 'topRight'
+      });
       return;
     }
     console.log("oioio")
@@ -72,8 +75,11 @@ function CreateTraveler() {
         setNic(nicNumber);
         return true;
     } else {
-        alert("Invalid NIC Number");
-        return false;
+      api.error({
+        message: "Invalid NIC Number",
+        placement: 'topRight'
+      });
+      return false;
     }
 }
 
