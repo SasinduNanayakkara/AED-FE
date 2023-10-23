@@ -96,16 +96,6 @@ function ViewTravelers() {
     setActive(active - 1);
   };
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
-
-  const handleAllClick = () => {
-    setIsAllClicked((prevState) => !prevState);
-    setIsUpcomingClicked(false);
-    setIsHistoryClicked(false);
-  };
-
   const handleUpcomingClick = () => {
     setIsUpcomingClicked((prevState) => !prevState);
     setIsAllClicked(false);
