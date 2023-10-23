@@ -2,23 +2,52 @@ import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import axios from "axios";
+import { Table, Tag } from 'antd';
 import { baseUrl } from "../App";
 import { notification } from "antd";
 
 function CreateReservation() {
-  const timeOptions = [
-    "9:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "12:00 PM",
-    "1:00 PM",
-    "2:00 PM",
-  ];
+ const columns = [
+  {
+    title: 'Train Name',
+    dataIndex: 'trainName',
+    key: 'name',
+  },
+  {
+    title: 'Start Station',
+    dataIndex: 'startStation',
+    key: 'startStation',
+  },
+  {
+    title: 'Start Station Time',
+    dataIndex: 'startStationTime',
+    key: 'startStationTime',
+  },
+  {
+    title: 'End Station',
+    dataIndex: 'endStation',
+    key: 'endStation',
+  },
+  {
+    title: 'End Station Time',
+    dataIndex: 'endStationTime',
+    key: 'endStationTime',
+  }
+  
+ ];
   const [stationsList, setStationsList] = useState([]);
   const [startStation, setStartStation] = useState("");
   const [endStation, setEndStation] = useState("");
   const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [trainData, setTrainData] = useState([]);
+  const [getTrainData, setGetTrainData] = useState([{
+    trainName: "",
+    startStation: "",
+    startStationTime: "",
+    endStation: "",
+    endStationTime: "",
+  }]);
 
   const currentDate = new Date();
   currentDate.setDate(currentDate.getDate() + 30);
@@ -40,6 +69,8 @@ function CreateReservation() {
     getTrainList();
   },[]);
 
+  console.log("train data", getTrainData);
+
   const getFilteredTrains = async (e) => {
     e.preventDefault();
     try {
@@ -50,6 +81,17 @@ function CreateReservation() {
       });
       if (response) {
         console.log(response.data);
+        // setTrainData(response.data);
+        const newArray = response.data?.map((station) => {
+          return {
+            trainName: station.name,
+            startStation: station.startStation.station,
+            startStationTime: station.startStation.time,
+            endStation: station.endStation.station,
+            endStationTime: station.endStation.time,
+          }
+        });
+        setTrainData(newArray);
       }
     }
     catch(error) {
@@ -58,6 +100,13 @@ function CreateReservation() {
   };
 
   console.log(date, startStation, endStation);
+
+  const CreateReservation = async (record) => {
+    // try {
+    //   const resposne = await axios.post(`${baseUrl}/reservation`, {
+
+    //   })}
+  }
 
 
   return (
@@ -134,6 +183,16 @@ function CreateReservation() {
             </div>
           </div>
         </div>
+          <div>
+          <Table dataSource={trainData} columns={columns} onRow={(record, rowIndex) => {
+            return{
+              onClick: () => CreateReservation(record)
+            }
+          }} />
+          
+        </div>
+
+        
       </div>
       <Footer />
 
