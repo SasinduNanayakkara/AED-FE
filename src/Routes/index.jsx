@@ -10,6 +10,7 @@ import TrainList from "../Pages/TrainList";
 import UpdateTravel from "../Pages/UpdateTravel"
 import UpdateTrain from "../Pages/UpdateTrain"
 import CreateReservation from "../Pages/CreateReservation";
+import Traveres from "../Pages/Travelers";
 
 const PageRoutes = () => {
   return (
@@ -19,7 +20,7 @@ const PageRoutes = () => {
         <Route path="/login" element={<LogIn />} />
         <Route path="/extravelers" element={<ExTravelers/>}/>
         <Route path="/viewtraveler" element={<ViewTraveler />} />
-        <Route path="/boextravelers" element={<BOExTravelers/>}/>
+        <Route path="/boextravelers" element={<Traveres/>}/>
         <Route path="/createtravel" element={<CreateTravel/>}/>
         <Route path="/createtrain" element={<CreateTrain/>}/>
         <Route path="/trainlist" element={<TrainList/>}/>
