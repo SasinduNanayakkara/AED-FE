@@ -13,6 +13,7 @@ import CreateReservation from "../Pages/CreateReservation";
 import Traveres from "../Pages/AgentTravel";
 import LoginClient from "../Pages/Common/LoginAgent";
 import LoginOffice from "../Pages/Common/LogInOffice";
+import UpdateReservation from "../Pages/UpdateReservation";
 
 const PageRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const PageRoutes = () => {
         <Route path="/updatetravel" element={<UpdateTravel/>}/>
         <Route path="/updatetrain" element={<UpdateTrain/>}/>
         <Route path="/createreservation" element={<CreateReservation/>}/>
+        <Route path="/updatereservation" element={<UpdateReservation/>}/>
       </Routes>
     </Router>
   );

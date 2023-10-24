@@ -7,7 +7,7 @@ import { baseUrl } from "../App";
 import { notification } from "antd";
 import { useLocation } from "react-router-dom";
 
-function CreateReservation() {
+function UpdateReservation() {
  const columns = [
   {
     title: 'Train Name',
@@ -37,7 +37,8 @@ function CreateReservation() {
   
  ];
  const location = useLocation();
- const [nic, setNic] = useState(location.state.nic);
+ console.log("data", location.state);
+//  const [nic, setNic] = useState(location.state.nic);
   const [stationsList, setStationsList] = useState([]);
   const [startStation, setStartStation] = useState("");
   const [endStation, setEndStation] = useState("");
@@ -74,7 +75,7 @@ function CreateReservation() {
     getTrainList();
   },[]);
 
-  console.log("train data", nic);
+//   console.log("train data", nic);
 
   const getFilteredTrains = async (e) => {
     e.preventDefault();
@@ -125,7 +126,7 @@ function CreateReservation() {
     handleCancel();
     try {
       const resposne = await axios.post(`${baseUrl}/reservation`, {
-        nic: nic,
+        // nic: nic,
         trainNumber: record.trainNumber,
         date: date,
         startStation: {
@@ -279,4 +280,4 @@ function CreateReservation() {
   );
 }
 
-export default CreateReservation;
+export default UpdateReservation;

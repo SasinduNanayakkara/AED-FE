@@ -44,6 +44,7 @@ function ViewTravelers() {
             date: item?.date,
             startStation: item?.startStation?.station,
             endStation: item?.endStation?.station,
+            id: item?.id
         })
       })
       
@@ -59,6 +60,7 @@ function ViewTravelers() {
             date: item?.date,
             startStation: item?.startStation?.station,
             endStation: item?.endStation?.station,
+            id: item?.id
         })
       })
     }
@@ -159,7 +161,9 @@ function ViewTravelers() {
           <div className="ml-auto">
               <button
                 className="px-4 py-2 bg-black text-white font-semibold hover:bg-[#FF5C00] rounded"
-                onClick={() => {navigate("/createtravel")}}
+                onClick={() => {navigate("/createreservation", {
+                  state: {nic: nic}
+                })}}
               >
                 New Reservation
               </button>
@@ -207,11 +211,12 @@ function ViewTravelers() {
             </thead>
             <tbody>
               {tableData.map(
-                ({  name, date, startStation, endStation }, index) => {
+                ({  name, date, startStation, endStation, id }, index) => {
                   const isLast = index === tableData.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
+                  const data = {name, date, startStation, endStation, id};
 
                   return (
                     <tr key={name}>
@@ -253,7 +258,7 @@ function ViewTravelers() {
                           {endStation}
                         </Typography>
                       </td>
-                      <Actions classes={classes} />
+                      <Actions classes={classes} data={data} />
                     </tr>
                   );
                 }
@@ -267,8 +272,10 @@ function ViewTravelers() {
   );
 }
 
-const Actions = ({ classes }) => {
+const Actions = ({ classes }, {data}) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+  console.log("dd data", data);
   return (
     <td className={classes}>
       <div className="flex items-center">
@@ -283,11 +290,8 @@ const Actions = ({ classes }) => {
         {showDropdown && (
           <div className="absolute right-0 mt-4 w-40 bg-white border rounded shadow-lg">
             <ul>
-              <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
+              <li className="px-4 py-2 cursor-pointer hover:bg-gray-200" onClick={() => navigate("/updatereservation", {state: {data}})}>
                 Edit
-              </li>
-              <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">
-                Delete
               </li>
               <li className="px-4 py-2 cursor-pointer hover:bg-gray-200" onClick={() => setShowDropdown(false)}>
                 Cancel
